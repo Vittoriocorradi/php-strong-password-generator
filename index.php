@@ -6,8 +6,17 @@ $number_characters = range('0', '9');
 $special_characters = ['~','!','@','#','$','*','%','`','?','[',']','{','}',';','<','>','?','.',',','_','-','(',')'];
 
 $random_characters = array_merge($lowercase_characters, $uppercase_characters, $number_characters, $special_characters);
-    
-var_dump($random_characters);
+
+$password_length = $_GET['password_length'];
+
+function randomPassword($password_length, $random_characters) {
+    $password = '';
+    for ($i = 0; $i < $password_length; $i++) {
+        $password .= $random_characters[rand(0, count($random_characters))];
+    }
+    return $password;
+
+}
 
 
 
@@ -35,6 +44,7 @@ var_dump($random_characters);
             <input type="number" class="form-control mb-3" name="password_length" id="password-length" min="5" max="13">
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
+        <p class="text-center mt-4">La tua password è: <span class="fs-4"><?php echo randomPassword($password_length, $random_characters); ?></span></p>
     </div>
 </body>
 
