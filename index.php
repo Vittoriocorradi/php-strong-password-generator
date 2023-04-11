@@ -1,9 +1,19 @@
 <?php
 
+session_start();
+
 include __DIR__ . '/variables.php';
 include __DIR__ . '/functions.php';
 
-$password_length = $_GET['password_length'];
+$_SESSION['password_length'] = $_GET['password_length'];
+// $_SESSION['password_length'] = $password_length
+
+$_SESSION['user_password'] = randomPassword($_SESSION['password_length'], $random_characters);
+// var_dump($_SESSION['user_password']);
+
+if (!empty($_SESSION['password_length'])) {
+    header('Location: ./password.php');
+}
 
 ?>
 
@@ -30,11 +40,9 @@ $password_length = $_GET['password_length'];
             <input type="number" class="form-control mb-3" name="password_length" id="password-length" min="5" max="13">
             <button type="submit" class="btn btn-primary">Ricevi la password</button>
         </form>
-        <?php if (!empty($password_length)) { ?>
-            <p class="text-center mt-4">La tua password è: <span class="fs-4"><?php echo randomPassword($password_length, $random_characters); ?></span></p>
-        <?php } else { ?>
+        <?php if (!isset($_SESSION['password_length'])): ?>
             <p class="text-center mt-4">Inserire un numero tra 5 e 13 per ricevere una password</p>
-        <?php } ?>
+        <?php endif ?>
     </div>
 </body>
 
