@@ -1,11 +1,6 @@
 <?php
 
-$lowercase_characters = range('a','z');
-$uppercase_characters = range('A', 'Z');
-$number_characters = range('0', '9');
-$special_characters = ['~','!','@','#','$','*','%','`','?','[',']','{','}',';','<','>','?','.',',','_','-','(',')'];
-
-$random_characters = array_merge($lowercase_characters, $uppercase_characters, $number_characters, $special_characters);
+include __DIR__ . '/variables.php';
 
 $password_length = $_GET['password_length'];
 
@@ -39,10 +34,11 @@ function randomPassword($password_length, $random_characters) {
 
 <body>
     <div class="container p-4">
+        <h1 class="mb-5">Strong Password Generator</h1>
         <form action="index.php" method="GET">
             <label for="password-length" class="form-label">Lunghezza Password</label>
             <input type="number" class="form-control mb-3" name="password_length" id="password-length" min="5" max="13">
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary">Ricevi la password</button>
         </form>
         <p class="text-center mt-4">La tua password è: <span class="fs-4"><?php echo randomPassword($password_length, $random_characters); ?></span></p>
     </div>
